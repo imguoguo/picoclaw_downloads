@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>picoclaw — Download</title>
-  <meta name="description" content="Download picoclaw for macOS, Windows, Linux, and FreeBSD." />
+  <title>PicoClaw — Download</title>
+  <meta name="description" content="Download PicoClaw for macOS, Windows, Linux, and FreeBSD." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
@@ -59,16 +59,17 @@
       pointer-events: none;
     }
 
-    .logo {
+    .logo-img {
       position: relative; z-index: 1;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(2.4rem, 6vw, 3.6rem);
-      font-weight: 600;
-      letter-spacing: -0.025em;
-      background: linear-gradient(135deg, #79c0ff 0%, #58a6ff 45%, #a5d6ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      display: inline-block;
+      background: #fff;
+      border-radius: 18px;
+      padding: 10px 28px;
+    }
+    .logo-img img {
+      display: block;
+      height: clamp(56px, 9vw, 84px);
+      width: auto;
     }
 
     .tagline {
@@ -382,7 +383,9 @@
 <body>
 
   <header>
-    <div class="logo">picoclaw</div>
+    <div class="logo-img">
+      <img src="logo.jpg" alt="PicoClaw" />
+    </div>
     <p class="tagline">Lightweight, cross-platform, blazing fast</p>
     <a href="https://github.com/sipeed/picoclaw/releases/latest" target="_blank" rel="noopener noreferrer">
       <img src="https://img.shields.io/github/v/release/sipeed/picoclaw?style=flat-square&logo=github&color=58a6ff&labelColor=0d1117&logoColor=white"
@@ -438,7 +441,7 @@
       <span class="footer-sep">·</span>
       <a href="https://github.com/sipeed/picoclaw/issues" target="_blank" rel="noopener noreferrer">Issues</a>
     </div>
-    <div>picoclaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a></div>
+    <div>PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a></div>
   </footer>
 
   <script>
