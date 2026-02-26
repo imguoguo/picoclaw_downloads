@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>picoclaw — Download</title>
+  <meta name="description" content="Download picoclaw for macOS, Windows, Linux, and FreeBSD." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:         #07090f;
+      --bg-card:    #0d1117;
+      --bg-card-h:  #131c28;
+      --border:     #1c2b3a;
+      --border-h:   #2a3f55;
+      --text:       #e6edf3;
+      --text-muted: #7d8590;
+      --accent:     #58a6ff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────────── */
+    header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 88px 20px 64px;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 720px; height: 500px;
+      background: radial-gradient(ellipse, rgba(88,166,255,0.13) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    .logo {
+      position: relative; z-index: 1;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      background: linear-gradient(135deg, #79c0ff 0%, #58a6ff 45%, #a5d6ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      position: relative; z-index: 1;
+      margin-top: 10px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    header a { position: relative; z-index: 1; display: inline-block; margin-top: 18px; }
+    header a img { display: block; border-radius: 4px; }
+
+    /* ─── MAIN ───────────────────────────────────────────────── */
+    main {
+      position: relative; z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 100px;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 30px;
+    }
+
+    /* ─── OS GRID ────────────────────────────────────────────── */
+    .os-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 600px) {
+      .os-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .os-card {
+      --c: #58a6ff;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 16px 30px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color .22s, transform .22s cubic-bezier(.34,1.4,.64,1),
+                  box-shadow .22s, background .22s;
+      outline: none;
+      gap: 16px;
+      overflow: hidden;
+    }
+
+    .os-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--c) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity .22s;
+    }
+
+    .os-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(ellipse at 50% -10%, var(--c) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity .22s;
+      pointer-events: none;
+    }
+
+    .os-card:hover, .os-card:focus-visible {
+      border-color: var(--c);
+      transform: translateY(-8px);
+      background: var(--bg-card-h);
+      box-shadow: 0 24px 48px rgba(0,0,0,.45), 0 0 0 1px var(--c), 0 0 30px -8px var(--c);
+    }
+
+    .os-card:hover::before, .os-card:focus-visible::before { opacity: .7; }
+    .os-card:hover::after,  .os-card:focus-visible::after  { opacity: .06; }
+    .os-card:active { transform: translateY(-4px); }
+
+    .os-icon {
+      position: relative; z-index: 1;
+      width: 54px; height: 54px;
+      transition: transform .22s cubic-bezier(.34,1.4,.64,1);
+      /* invert SVG color to match the theme – handled via CDN color param */
+    }
+
+    .os-card:hover .os-icon { transform: scale(1.1); }
+
+    .os-info {
+      position: relative; z-index: 1;
+      text-align: center;
+    }
+
+    .os-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .os-sub { font-size: 0.73rem; color: var(--text-muted); }
+
+    .os-arrow {
+      position: absolute;
+      bottom: 13px; right: 13px;
+      z-index: 1;
+      color: var(--c);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity .18s, transform .18s;
+    }
+
+    .os-card:hover .os-arrow { opacity: .65; transform: translateX(0); }
+
+    /* ─── LOADING / ERROR ────────────────────────────────────── */
+    .state-msg {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ─── MODAL ──────────────────────────────────────────────── */
+    .backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+    }
+
+    .backdrop.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      width: 100%; max-width: 470px;
+      background: #0d1117;
+      border: 1px solid #1c2b3a;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 48px 96px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,0.04);
+      transform: scale(.93) translateY(18px);
+      transition: transform .28s cubic-bezier(.34,1.3,.64,1);
+    }
+
+    .backdrop.open .modal { transform: scale(1) translateY(0); }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .modal-icon { width: 34px; height: 34px; flex-shrink: 0; }
+
+    .modal-titles { flex: 1; min-width: 0; }
+    .modal-title { font-size: 1.08rem; font-weight: 600; line-height: 1.3; }
+    .modal-sub { font-size: 0.76rem; color: var(--text-muted); margin-top: 1px; }
+
+    .close-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px;
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--text-muted);
+      cursor: pointer; flex-shrink: 0;
+      transition: color .15s, background .15s, border-color .15s;
+    }
+
+    .close-btn:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      border-color: var(--border);
+    }
+
+    .divider { height: 1px; background: var(--border); margin: 0 0 18px; }
+
+    .arch-list { display: flex; flex-direction: column; gap: 7px; }
+
+    .arch-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      text-decoration: none;
+      color: var(--text);
+      transition: background .15s, border-color .15s, transform .15s;
+      cursor: pointer;
+    }
+
+    .arch-item:hover {
+      background: rgba(88,166,255,0.07);
+      border-color: rgba(88,166,255,0.32);
+      transform: translateX(4px);
+    }
+
+    .arch-item:active { transform: translateX(2px); }
+
+    .arch-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+    .arch-label { font-size: 0.9rem; font-weight: 500; }
+
+    .arch-file {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .arch-right { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
+
+    .arch-size {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.71rem;
+      color: var(--text-muted);
+    }
+
+    .dl-icon {
+      color: #58a6ff;
+      opacity: .45;
+      transition: opacity .15s, transform .15s;
+    }
+
+    .arch-item:hover .dl-icon { opacity: 1; transform: translateY(2px); }
+
+    .modal-foot {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .modal-foot-note { font-size: 0.74rem; color: var(--text-muted); }
+
+    .chk-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      font-family: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color .15s, border-color .15s, background .15s;
+    }
+
+    .chk-link:hover {
+      color: var(--text);
+      border-color: var(--border-h);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a { color: var(--accent); text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-sep { color: var(--border-h); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">picoclaw</div>
+    <p class="tagline">Lightweight, cross-platform, blazing fast</p>
+    <a href="https://github.com/sipeed/picoclaw/releases/latest" target="_blank" rel="noopener noreferrer">
+      <img src="https://img.shields.io/github/v/release/sipeed/picoclaw?style=flat-square&logo=github&color=58a6ff&labelColor=0d1117&logoColor=white"
+           alt="Latest Release" height="24" />
+    </a>
+  </header>
+
+  <main>
+    <p class="section-label">Choose your platform</p>
+    <div class="os-grid" id="os-grid">
+      <div class="state-msg" style="grid-column:1/-1">Loading release info…</div>
+    </div>
+  </main>
+
+  <div class="backdrop" id="backdrop">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+      <div class="modal-head">
+        <img class="modal-icon" id="modal-icon" src="" alt="" />
+        <div class="modal-titles">
+          <div class="modal-title" id="modal-title-text"></div>
+          <div class="modal-sub">Select architecture to download</div>
+        </div>
+        <button class="close-btn" id="close-btn" aria-label="Close">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="divider"></div>
+      <div class="arch-list" id="arch-list"></div>
+
+      <div class="modal-foot">
+        <span class="modal-foot-note">Always downloads the latest release</span>
+        <a class="chk-link" id="checksums-link" href="#" target="_blank" rel="noopener noreferrer">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          SHA256 Checksums
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="footer-sep">·</span>
+      <a href="https://github.com/sipeed/picoclaw/releases" target="_blank" rel="noopener noreferrer">All Releases</a>
+      <span class="footer-sep">·</span>
+      <a href="https://github.com/sipeed/picoclaw/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+    </div>
+    <div>picoclaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a></div>
+  </footer>
+
+  <script>
+    const BASE_DL      = 'https://github.com/sipeed/picoclaw/releases/latest/download/';
+    const RELEASES_URL = 'https://github.com/sipeed/picoclaw/releases/latest';
+    const ICON_CDN     = 'https://cdn.simpleicons.org/';
+
+    // Inline SVG fallbacks for icons not reliably available on CDN
+    const INLINE_ICONS = {
+      windows: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="{COLOR}"><path d="M3 5L10.5 3.9V11H3zM11.5 3.7L21 2.5V11H11.5zM3 12H10.5V20.1L3 19zM11.5 12H21V21.5L11.5 20.3z"/></svg>`,
+    };
+
+    function iconUrl(slug, color) {
+      if (INLINE_ICONS[slug]) {
+        const svg = INLINE_ICONS[slug].replace('{COLOR}', color);
+        return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+      }
+      return ICON_CDN + slug + '/' + color.replace('#', '');
+    }
+
+    const ARROW_SVG = `
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"/>
+        <polyline points="12 5 19 12 12 19"/>
+      </svg>`;
+
+    const DL_SVG = `
+      <svg class="dl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>`;
+
+    function buildCards(platforms) {
+      const grid = document.getElementById('os-grid');
+      grid.innerHTML = '';
+
+      platforms.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'os-card';
+        card.style.setProperty('--c', p.color);
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+
+        card.innerHTML = `
+          <img class="os-icon" src="${iconUrl(p.icon, p.color)}" alt="${p.name}" />
+          <div class="os-info">
+            <div class="os-name">${p.name}</div>
+            <div class="os-sub">${p.archs.length} architecture${p.archs.length > 1 ? 's' : ''}</div>
+          </div>
+          <div class="os-arrow">${ARROW_SVG}</div>`;
+
+        card.addEventListener('click', () => openModal(p));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(p); }
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    function openModal(p) {
+      document.getElementById('modal-title-text').textContent = p.name;
+      document.getElementById('modal-icon').src = iconUrl(p.icon, p.color);
+      document.getElementById('modal-icon').alt = p.name;
+
+      const list = document.getElementById('arch-list');
+      list.innerHTML = '';
+
+      p.archs.forEach(arch => {
+        const a = document.createElement('a');
+        a.className = 'arch-item';
+        a.href = BASE_DL + arch.file;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.innerHTML = `
+          <div class="arch-left">
+            <span class="arch-label">${arch.label}</span>
+            <span class="arch-file">${arch.file}</span>
+          </div>
+          <div class="arch-right">
+            <span class="arch-size">${arch.size}</span>
+            ${DL_SVG}
+          </div>`;
+        list.appendChild(a);
+      });
+
+      document.getElementById('backdrop').classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      requestAnimationFrame(() => {
+        const first = list.querySelector('.arch-item');
+        if (first) first.focus();
+      });
+    }
+
+    function closeModal() {
+      document.getElementById('backdrop').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('backdrop').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+    document.getElementById('close-btn').addEventListener('click', closeModal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Checksums always point to the latest release page
+    document.getElementById('checksums-link').href = RELEASES_URL;
+
+    // ── Load platform list from releases.json ─────────────────────
+    fetch('releases.json')
+      .then(r => {
+        if (!r.ok) throw new Error('Failed to load releases.json');
+        return r.json();
+      })
+      .then(data => buildCards(data.platforms))
+      .catch(err => {
+        console.error(err);
+        document.getElementById('os-grid').innerHTML =
+          `<div class="state-msg" style="grid-column:1/-1">
+             Failed to load release info.
+             <a href="${RELEASES_URL}" style="color:var(--accent)">View on GitHub →</a>
+           </div>`;
+      });
+  </script>
+</body>
+</html>
