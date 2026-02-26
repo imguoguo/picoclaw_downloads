@@ -53,9 +53,9 @@
           "file": "picoclaw_Linux_arm64.tar.gz"
         },
         {
-          "label": "ARMv6 (armv6)",
-          "desc": "Raspberry Pi Zero/1",
-          "file": "picoclaw_Linux_armv6.tar.gz"
+          "label": "ARMv7 (armv7)",
+          "desc": "Raspberry Pi 2/3, older SBCs",
+          "file": "picoclaw_Linux_armv7.tar.gz"
         },
         {
           "label": "RISC-V 64 (riscv64)",
@@ -81,9 +81,9 @@
           "file": "picoclaw_Freebsd_arm64.tar.gz"
         },
         {
-          "label": "ARMv6 (armv6)",
+          "label": "ARMv7 (armv7)",
           "desc": "ARM 32-bit",
-          "file": "picoclaw_Freebsd_armv6.tar.gz"
+          "file": "picoclaw_Freebsd_armv7.tar.gz"
         }
       ]
     }
