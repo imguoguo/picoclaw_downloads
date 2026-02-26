@@ -65,22 +65,10 @@
           "size": "5.35 MB"
         },
         {
-          "label": "MIPS64 (mips64)",
-          "desc": "MIPS 64-bit",
-          "file": "picoclaw_Linux_mips64.tar.gz",
-          "size": "5.20 MB"
-        },
-        {
           "label": "RISC-V 64 (riscv64)",
           "desc": "RISC-V 64-bit",
           "file": "picoclaw_Linux_riscv64.tar.gz",
           "size": "5.75 MB"
-        },
-        {
-          "label": "S390x",
-          "desc": "IBM Z / LinuxONE",
-          "file": "picoclaw_Linux_s390x.tar.gz",
-          "size": "5.41 MB"
         }
       ]
     },
