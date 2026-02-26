@@ -307,12 +307,6 @@
 
     .arch-right { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
 
-    .arch-size {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.71rem;
-      color: var(--text-muted);
-    }
-
     .dl-icon {
       color: #58a6ff;
       opacity: .45;
@@ -527,7 +521,6 @@
             <span class="arch-file">${arch.file}</span>
           </div>
           <div class="arch-right">
-            <span class="arch-size">${arch.size}</span>
             ${DL_SVG}
           </div>`;
         list.appendChild(a);

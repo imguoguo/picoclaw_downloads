@@ -9,14 +9,12 @@
         {
           "label": "Apple Silicon (arm64)",
           "desc": "M1 / M2 / M3 and later",
-          "file": "picoclaw_Darwin_arm64.tar.gz",
-          "size": "5.75 MB"
+          "file": "picoclaw_Darwin_arm64.tar.gz"
         },
         {
           "label": "Intel (x86_64)",
           "desc": "Intel-based Mac",
-          "file": "picoclaw_Darwin_x86_64.tar.gz",
-          "size": "6.11 MB"
+          "file": "picoclaw_Darwin_x86_64.tar.gz"
         }
       ]
     },
@@ -29,14 +27,12 @@
         {
           "label": "x86_64 (64-bit)",
           "desc": "Recommended for most PCs",
-          "file": "picoclaw_Windows_x86_64.zip",
-          "size": "6.14 MB"
+          "file": "picoclaw_Windows_x86_64.zip"
         },
         {
           "label": "ARM64",
           "desc": "Windows on ARM",
-          "file": "picoclaw_Windows_arm64.zip",
-          "size": "5.54 MB"
+          "file": "picoclaw_Windows_arm64.zip"
         }
       ]
     },
@@ -49,26 +45,22 @@
         {
           "label": "x86_64",
           "desc": "64-bit · Recommended",
-          "file": "picoclaw_Linux_x86_64.tar.gz",
-          "size": "5.98 MB"
+          "file": "picoclaw_Linux_x86_64.tar.gz"
         },
         {
           "label": "ARM64 (arm64)",
           "desc": "Raspberry Pi 4/5, modern SBCs",
-          "file": "picoclaw_Linux_arm64.tar.gz",
-          "size": "5.48 MB"
+          "file": "picoclaw_Linux_arm64.tar.gz"
         },
         {
           "label": "ARMv6 (armv6)",
           "desc": "Raspberry Pi Zero/1",
-          "file": "picoclaw_Linux_armv6.tar.gz",
-          "size": "5.35 MB"
+          "file": "picoclaw_Linux_armv6.tar.gz"
         },
         {
           "label": "RISC-V 64 (riscv64)",
           "desc": "RISC-V 64-bit",
-          "file": "picoclaw_Linux_riscv64.tar.gz",
-          "size": "5.75 MB"
+          "file": "picoclaw_Linux_riscv64.tar.gz"
         }
       ]
     },
@@ -81,20 +73,17 @@
         {
           "label": "x86_64",
           "desc": "64-bit · Recommended",
-          "file": "picoclaw_Freebsd_x86_64.tar.gz",
-          "size": "5.93 MB"
+          "file": "picoclaw_Freebsd_x86_64.tar.gz"
         },
         {
           "label": "ARM64 (arm64)",
           "desc": "AArch64",
-          "file": "picoclaw_Freebsd_arm64.tar.gz",
-          "size": "5.43 MB"
+          "file": "picoclaw_Freebsd_arm64.tar.gz"
         },
         {
           "label": "ARMv6 (armv6)",
           "desc": "ARM 32-bit",
-          "file": "picoclaw_Freebsd_armv6.tar.gz",
-          "size": "5.30 MB"
+          "file": "picoclaw_Freebsd_armv6.tar.gz"
         }
       ]
     }
