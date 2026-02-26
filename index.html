@@ -284,13 +284,32 @@
       cursor: pointer;
     }
 
-    .arch-item:hover {
+    .arch-item:not(.arch-item--multi):hover {
       background: rgba(88,166,255,0.07);
       border-color: rgba(88,166,255,0.32);
       transform: translateX(4px);
     }
 
-    .arch-item:active { transform: translateX(2px); }
+    .arch-item:not(.arch-item--multi):active { transform: translateX(2px); }
+
+    .arch-item--multi { cursor: default; }
+    .arch-item--multi:hover { background: var(--bg-card-h); border-color: var(--border-h); transform: none; }
+
+    .fmt-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 6px;
+      border: 1px solid var(--border-h);
+      background: var(--bg);
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      text-decoration: none;
+      transition: background .15s, border-color .15s, color .15s;
+      white-space: nowrap;
+    }
+    .fmt-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 
     .arch-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 
@@ -313,7 +332,7 @@
       transition: opacity .15s, transform .15s;
     }
 
-    .arch-item:hover .dl-icon { opacity: 1; transform: translateY(2px); }
+    .arch-item:not(.arch-item--multi):hover .dl-icon { opacity: 1; transform: translateY(2px); }
 
     .modal-foot {
       margin-top: 16px;
@@ -510,20 +529,35 @@
       list.innerHTML = '';
 
       p.archs.forEach(arch => {
-        const a = document.createElement('a');
-        a.className = 'arch-item';
-        a.href = BASE_DL + arch.file;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.innerHTML = `
-          <div class="arch-left">
-            <span class="arch-label">${arch.label}</span>
-            <span class="arch-file">${arch.file}</span>
-          </div>
-          <div class="arch-right">
-            ${DL_SVG}
-          </div>`;
-        list.appendChild(a);
+        let el;
+        if (arch.packages) {
+          el = document.createElement('div');
+          el.className = 'arch-item arch-item--multi';
+          const fmtBtns = [
+            `<a class="fmt-btn" href="${BASE_DL + arch.file}" target="_blank" rel="noopener noreferrer">.tar.gz</a>`,
+            `<a class="fmt-btn" href="${BASE_DL + arch.packages.deb}" target="_blank" rel="noopener noreferrer">.deb</a>`,
+            `<a class="fmt-btn" href="${BASE_DL + arch.packages.rpm}" target="_blank" rel="noopener noreferrer">.rpm</a>`,
+          ].join('');
+          el.innerHTML = `
+            <div class="arch-left">
+              <span class="arch-label">${arch.label}</span>
+              <span class="arch-file">${arch.desc}</span>
+            </div>
+            <div class="arch-right">${fmtBtns}</div>`;
+        } else {
+          el = document.createElement('a');
+          el.className = 'arch-item';
+          el.href = BASE_DL + arch.file;
+          el.target = '_blank';
+          el.rel = 'noopener noreferrer';
+          el.innerHTML = `
+            <div class="arch-left">
+              <span class="arch-label">${arch.label}</span>
+              <span class="arch-file">${arch.file}</span>
+            </div>
+            <div class="arch-right">${DL_SVG}</div>`;
+        }
+        list.appendChild(el);
       });
 
       document.getElementById('backdrop').classList.add('open');
