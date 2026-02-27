@@ -393,15 +393,49 @@
     footer a { color: var(--accent); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     .footer-sep { color: var(--border-h); }
+
+    /* ─── LANG TOGGLE ────────────────────────────────────────────── */
+    .lang-toggle {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      display: flex;
+      gap: 2px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      z-index: 10;
+    }
+    .lang-btn {
+      padding: 3px 10px;
+      border-radius: 5px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.73rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .lang-btn.active {
+      background: var(--border-h);
+      color: var(--text);
+    }
+    .lang-btn:hover:not(.active) { color: var(--text); }
   </style>
 </head>
 <body>
 
   <header>
+    <div class="lang-toggle" id="lang-toggle">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="zh">中文</button>
+    </div>
     <div class="logo-img">
       <img src="logo.jpg" alt="PicoClaw" />
     </div>
-    <p class="tagline">Lightweight, cross-platform, blazing fast</p>
+    <p class="tagline" data-i18n="tagline">Lightweight, cross-platform, blazing fast</p>
     <a href="https://github.com/sipeed/picoclaw/releases/latest" target="_blank" rel="noopener noreferrer">
       <img src="https://img.shields.io/github/v/release/sipeed/picoclaw?style=flat-square&logo=github&color=58a6ff&labelColor=0d1117&logoColor=white"
            alt="Latest Release" height="24" />
@@ -409,9 +443,9 @@
   </header>
 
   <main>
-    <p class="section-label">Choose your platform</p>
+    <p class="section-label" data-i18n="section-label">Choose your platform</p>
     <div class="os-grid" id="os-grid">
-      <div class="state-msg" style="grid-column:1/-1">Loading release info…</div>
+      <div class="state-msg" style="grid-column:1/-1" data-i18n="loading">Loading release info…</div>
     </div>
   </main>
 
@@ -421,7 +455,7 @@
         <img class="modal-icon" id="modal-icon" src="" alt="" />
         <div class="modal-titles">
           <div class="modal-title" id="modal-title-text"></div>
-          <div class="modal-sub">Select architecture to download</div>
+          <div class="modal-sub" data-i18n="modal-sub">Select architecture to download</div>
         </div>
         <button class="close-btn" id="close-btn" aria-label="Close">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -436,13 +470,13 @@
       <div class="arch-list" id="arch-list"></div>
 
       <div class="modal-foot">
-        <span class="modal-foot-note">Always downloads the latest release</span>
+        <span class="modal-foot-note" data-i18n="modal-foot-note">Always downloads the latest release</span>
         <a class="chk-link" id="checksums-link" href="#" target="_blank" rel="noopener noreferrer">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
-          SHA256 Checksums
+          <span data-i18n="checksums">SHA256 Checksums</span>
         </a>
       </div>
     </div>
@@ -452,14 +486,86 @@
     <div class="footer-links">
       <a href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer">GitHub</a>
       <span class="footer-sep">·</span>
-      <a href="https://github.com/sipeed/picoclaw/releases" target="_blank" rel="noopener noreferrer">All Releases</a>
+      <a href="https://github.com/sipeed/picoclaw/releases" target="_blank" rel="noopener noreferrer" data-i18n="footer-releases">All Releases</a>
       <span class="footer-sep">·</span>
-      <a href="https://github.com/sipeed/picoclaw/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+      <a href="https://github.com/sipeed/picoclaw/issues" target="_blank" rel="noopener noreferrer" data-i18n="footer-issues">Issues</a>
     </div>
-    <div>PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a></div>
+    <div id="footer-credit">PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a></div>
   </footer>
 
   <script>
+    // ── i18n ──────────────────────────────────────────────────────
+    const TRANSLATIONS = {
+      en: {
+        'tagline':         'Lightweight, cross-platform, blazing fast',
+        'section-label':   'Choose your platform',
+        'loading':         'Loading release info…',
+        'modal-sub':       'Select architecture to download',
+        'modal-foot-note': 'Always downloads the latest release',
+        'checksums':       'SHA256 Checksums',
+        'footer-releases': 'All Releases',
+        'footer-issues':   'Issues',
+        'footer-credit':   'PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a>',
+        'load-error':      'Failed to load release info.',
+        'view-github':     'View on GitHub →',
+        'arch-count':      n => `${n} architecture${n > 1 ? 's' : ''}`,
+      },
+      zh: {
+        'tagline':         '轻量、跨平台、极速',
+        'section-label':   '选择平台',
+        'loading':         '加载中…',
+        'modal-sub':       '选择架构以下载',
+        'modal-foot-note': '始终下载最新版本',
+        'checksums':       'SHA256 校验和',
+        'footer-releases': '所有版本',
+        'footer-issues':   '问题反馈',
+        'footer-credit':   'PicoClaw 是由 <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a> 开发的开源软件',
+        'load-error':      '加载发布信息失败。',
+        'view-github':     '在 GitHub 上查看 →',
+        'arch-count':      n => `${n} 个架构`,
+      },
+    };
+
+    function detectLang() {
+      const saved = localStorage.getItem('lang');
+      if (saved && TRANSLATIONS[saved]) return saved;
+      return navigator.language.startsWith('zh') ? 'zh' : 'en';
+    }
+
+    let currentLang = detectLang();
+
+    function t(key) {
+      return (TRANSLATIONS[currentLang] || TRANSLATIONS.en)[key]
+          ?? TRANSLATIONS.en[key]
+          ?? key;
+    }
+
+    function applyStaticLang() {
+      document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        const val = t(key);
+        if (typeof val === 'string' && val.includes('<')) el.innerHTML = val;
+        else if (typeof val === 'string') el.textContent = val;
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === currentLang);
+      });
+    }
+
+    function switchLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('lang', lang);
+      applyStaticLang();
+      if (platformData) buildCards(platformData);
+    }
+
+    document.getElementById('lang-toggle').addEventListener('click', e => {
+      const btn = e.target.closest('.lang-btn');
+      if (btn) switchLang(btn.dataset.lang);
+    });
+
+    // ── Constants ─────────────────────────────────────────────────
     const BASE_DL      = 'https://github.com/sipeed/picoclaw/releases/latest/download/';
     const RELEASES_URL = 'https://github.com/sipeed/picoclaw/releases/latest';
     const ICON_CDN     = 'https://cdn.simpleicons.org/';
@@ -492,7 +598,10 @@
         <line x1="12" y1="15" x2="12" y2="3"/>
       </svg>`;
 
+    let platformData = null;
+
     function buildCards(platforms) {
+      platformData = platforms;
       const grid = document.getElementById('os-grid');
       grid.innerHTML = '';
 
@@ -507,7 +616,7 @@
           <img class="os-icon" src="${iconUrl(p.icon, p.color)}" alt="${p.name}" />
           <div class="os-info">
             <div class="os-name">${p.name}</div>
-            <div class="os-sub">${p.archs.length} architecture${p.archs.length > 1 ? 's' : ''}</div>
+            <div class="os-sub">${t('arch-count')(p.archs.length)}</div>
           </div>
           <div class="os-arrow">${ARROW_SVG}</div>`;
 
@@ -580,6 +689,9 @@
     document.getElementById('close-btn').addEventListener('click', closeModal);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
+    // Apply language on initial load
+    applyStaticLang();
+
     // Checksums always point to the latest release page
     document.getElementById('checksums-link').href = RELEASES_URL;
 
@@ -594,8 +706,8 @@
         console.error(err);
         document.getElementById('os-grid').innerHTML =
           `<div class="state-msg" style="grid-column:1/-1">
-             Failed to load release info.
-             <a href="${RELEASES_URL}" style="color:var(--accent)">View on GitHub →</a>
+             ${t('load-error')}
+             <a href="${RELEASES_URL}" style="color:var(--accent)">${t('view-github')}</a>
            </div>`;
       });
   </script>
