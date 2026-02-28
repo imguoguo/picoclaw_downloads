@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PicoClaw — Download</title>
-  <meta name="description" content="Download PicoClaw for macOS, Windows, Linux, and FreeBSD." />
+  <title>PicoClaw</title>
+  <meta name="description" content="Download PicoClaw — lightweight, cross-platform, blazing fast." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg:         #07090f;
-      --bg-card:    #0d1117;
-      --bg-card-h:  #131c28;
-      --border:     #1c2b3a;
-      --border-h:   #2a3f55;
-      --text:       #e6edf3;
-      --text-muted: #7d8590;
+      --bg-card:    rgba(10, 20, 34, 0.75);
+      --bg-card-h:  rgba(16, 30, 50, 0.88);
+      --border:     rgba(255, 255, 255, 0.10);
+      --border-h:   rgba(255, 255, 255, 0.22);
+      --text:       #e8eef6;
+      --text-muted: #8a9bb0;
       --accent:     #58a6ff;
     }
 
@@ -25,20 +24,34 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(79, 124, 172, 0.30) 0%, transparent 44%),
+        radial-gradient(circle at 88% 18%, rgba(247, 197, 159, 0.18) 0%, transparent 36%),
+        radial-gradient(circle at 82% 90%, rgba(108, 195, 213, 0.16) 0%, transparent 38%),
+        linear-gradient(135deg, #0d1b2a, #111e2e 52%, #172236);
     }
 
-    body::before {
+    body::before, body::after {
       content: '';
       position: fixed;
-      inset: 0;
-      background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
+      border-radius: 999px;
+      filter: blur(70px);
       z-index: 0;
+      pointer-events: none;
+      opacity: 0.45;
+    }
+    body::before {
+      width: 400px; height: 400px;
+      background: linear-gradient(45deg, #1a6fa8, #0e4d7a);
+      top: -110px; left: -110px;
+    }
+    body::after {
+      width: 480px; height: 480px;
+      background: linear-gradient(45deg, #7a4a1e, #c07030);
+      bottom: -200px; right: -140px;
     }
 
     /* ─── HEADER ─────────────────────────────────────────────── */
@@ -46,27 +59,17 @@
       position: relative;
       z-index: 1;
       text-align: center;
-      padding: 88px 20px 64px;
+      padding: 80px 20px 60px;
     }
 
-    header::after {
-      content: '';
-      position: absolute;
-      top: -120px; left: 50%;
-      transform: translateX(-50%);
-      width: 720px; height: 500px;
-      background: radial-gradient(ellipse, rgba(88,166,255,0.13) 0%, transparent 68%);
-      pointer-events: none;
-    }
-
-    .logo-img {
+    .logo-wrap {
       position: relative; z-index: 1;
       display: inline-block;
       background: #fff;
-      border-radius: 18px;
+      border-radius: 12px;
       padding: 10px 28px;
     }
-    .logo-img img {
+    .logo-wrap img {
       display: block;
       height: clamp(56px, 9vw, 84px);
       width: auto;
@@ -74,20 +77,52 @@
 
     .tagline {
       position: relative; z-index: 1;
-      margin-top: 10px;
+      margin-top: 16px;
       color: var(--text-muted);
       font-size: 1.05rem;
     }
 
-    header a { position: relative; z-index: 1; display: inline-block; margin-top: 18px; }
-    header a img { display: block; border-radius: 4px; }
+    .header-actions {
+      position: relative; z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .badge-link { display: inline-flex; text-decoration: none; }
+    .badge-link img { display: block; border-radius: 4px; }
+
+    .btn-sipeed {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: linear-gradient(140deg, #2d78e8, #0099c2);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      box-shadow: 0 4px 14px rgba(45, 120, 232, 0.3);
+    }
+    .btn-sipeed:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 22px rgba(45, 120, 232, 0.45);
+      color: #fff;
+    }
 
     /* ─── MAIN ───────────────────────────────────────────────── */
     main {
       position: relative; z-index: 1;
       max-width: 900px;
       margin: 0 auto;
-      padding: 0 20px 100px;
+      padding: 0 20px 60px;
     }
 
     .section-label {
@@ -97,7 +132,7 @@
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.14em;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
     }
 
     /* ─── OS GRID ────────────────────────────────────────────── */
@@ -106,7 +141,6 @@
       gap: 14px;
       grid-template-columns: repeat(2, 1fr);
     }
-
     @media (min-width: 600px) {
       .os-grid { grid-template-columns: repeat(4, 1fr); }
     }
@@ -123,13 +157,14 @@
       border-radius: 18px;
       cursor: pointer;
       user-select: none;
-      transition: border-color .22s, transform .22s cubic-bezier(.34,1.4,.64,1),
+      transition: border-color .22s, transform .22s cubic-bezier(.34, 1.4, .64, 1),
                   box-shadow .22s, background .22s;
       outline: none;
       gap: 16px;
       overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-
     .os-card::before {
       content: '';
       position: absolute;
@@ -139,7 +174,6 @@
       opacity: 0;
       transition: opacity .22s;
     }
-
     .os-card::after {
       content: '';
       position: absolute; inset: 0;
@@ -149,14 +183,12 @@
       transition: opacity .22s;
       pointer-events: none;
     }
-
     .os-card:hover, .os-card:focus-visible {
       border-color: var(--c);
       transform: translateY(-8px);
       background: var(--bg-card-h);
-      box-shadow: 0 24px 48px rgba(0,0,0,.45), 0 0 0 1px var(--c), 0 0 30px -8px var(--c);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, .45), 0 0 0 1px var(--c), 0 0 30px -8px var(--c);
     }
-
     .os-card:hover::before, .os-card:focus-visible::before { opacity: .7; }
     .os-card:hover::after,  .os-card:focus-visible::after  { opacity: .06; }
     .os-card:active { transform: translateY(-4px); }
@@ -164,25 +196,13 @@
     .os-icon {
       position: relative; z-index: 1;
       width: 54px; height: 54px;
-      transition: transform .22s cubic-bezier(.34,1.4,.64,1);
-      /* invert SVG color to match the theme – handled via CDN color param */
+      transition: transform .22s cubic-bezier(.34, 1.4, .64, 1);
     }
-
     .os-card:hover .os-icon { transform: scale(1.1); }
 
-    .os-info {
-      position: relative; z-index: 1;
-      text-align: center;
-    }
-
-    .os-name {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 3px;
-    }
-
-    .os-sub { font-size: 0.73rem; color: var(--text-muted); }
+    .os-info { position: relative; z-index: 1; text-align: center; }
+    .os-name { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .os-sub  { font-size: 0.73rem; color: var(--text-muted); }
 
     .os-arrow {
       position: absolute;
@@ -193,10 +213,8 @@
       transform: translateX(-4px);
       transition: opacity .18s, transform .18s;
     }
-
     .os-card:hover .os-arrow { opacity: .65; transform: translateX(0); }
 
-    /* ─── LOADING / ERROR ────────────────────────────────────── */
     .state-msg {
       text-align: center;
       padding: 60px 20px;
@@ -207,7 +225,7 @@
     /* ─── MODAL ──────────────────────────────────────────────── */
     .backdrop {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,.72);
+      background: rgba(0, 0, 0, .72);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       z-index: 500;
@@ -219,34 +237,25 @@
       pointer-events: none;
       transition: opacity .2s ease;
     }
-
     .backdrop.open { opacity: 1; pointer-events: all; }
 
     .modal {
       width: 100%; max-width: 470px;
-      background: #0d1117;
-      border: 1px solid #1c2b3a;
+      background: #0d1521;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 20px;
       padding: 28px;
-      box-shadow: 0 48px 96px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,0.04);
+      box-shadow: 0 48px 96px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, 0.04);
       transform: scale(.93) translateY(18px);
-      transition: transform .28s cubic-bezier(.34,1.3,.64,1);
+      transition: transform .28s cubic-bezier(.34, 1.3, .64, 1);
     }
-
     .backdrop.open .modal { transform: scale(1) translateY(0); }
 
-    .modal-head {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
+    .modal-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
     .modal-icon { width: 34px; height: 34px; flex-shrink: 0; }
-
     .modal-titles { flex: 1; min-width: 0; }
     .modal-title { font-size: 1.08rem; font-weight: 600; line-height: 1.3; }
-    .modal-sub { font-size: 0.76rem; color: var(--text-muted); margin-top: 1px; }
+    .modal-sub   { font-size: 0.76rem; color: var(--text-muted); margin-top: 1px; }
 
     .close-btn {
       display: flex; align-items: center; justify-content: center;
@@ -258,15 +267,13 @@
       cursor: pointer; flex-shrink: 0;
       transition: color .15s, background .15s, border-color .15s;
     }
-
     .close-btn:hover {
       color: var(--text);
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       border-color: var(--border);
     }
 
     .divider { height: 1px; background: var(--border); margin: 0 0 18px; }
-
     .arch-list { display: flex; flex-direction: column; gap: 7px; }
 
     .arch-item {
@@ -275,7 +282,7 @@
       justify-content: space-between;
       gap: 12px;
       padding: 13px 16px;
-      background: rgba(255,255,255,0.025);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border);
       border-radius: 11px;
       text-decoration: none;
@@ -283,17 +290,14 @@
       transition: background .15s, border-color .15s, transform .15s;
       cursor: pointer;
     }
-
     .arch-item:not(.arch-item--multi):hover {
-      background: rgba(88,166,255,0.07);
-      border-color: rgba(88,166,255,0.32);
+      background: rgba(88, 166, 255, 0.07);
+      border-color: rgba(88, 166, 255, 0.32);
       transform: translateX(4px);
     }
-
     .arch-item:not(.arch-item--multi):active { transform: translateX(2px); }
-
     .arch-item--multi { cursor: default; }
-    .arch-item--multi:hover { background: var(--bg-card-h); border-color: var(--border-h); transform: none; }
+    .arch-item--multi:hover { background: rgba(255,255,255,.04); border-color: var(--border-h); }
 
     .fmt-btn {
       display: inline-flex;
@@ -301,7 +305,7 @@
       padding: 3px 9px;
       border-radius: 6px;
       border: 1px solid var(--border-h);
-      background: var(--bg);
+      background: rgba(0, 0, 0, 0.3);
       color: var(--accent);
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
@@ -312,9 +316,7 @@
     .fmt-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 
     .arch-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-
     .arch-label { font-size: 0.9rem; font-weight: 500; }
-
     .arch-file {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
@@ -323,15 +325,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
     .arch-right { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
 
-    .dl-icon {
-      color: #58a6ff;
-      opacity: .45;
-      transition: opacity .15s, transform .15s;
-    }
-
+    .dl-icon { color: #58a6ff; opacity: .45; transition: opacity .15s, transform .15s; }
     .arch-item:not(.arch-item--multi):hover .dl-icon { opacity: 1; transform: translateY(2px); }
 
     .modal-foot {
@@ -344,7 +340,6 @@
       gap: 8px;
       flex-wrap: wrap;
     }
-
     .modal-foot-note { font-size: 0.74rem; color: var(--text-muted); }
 
     .chk-link {
@@ -362,12 +357,56 @@
       cursor: pointer;
       transition: color .15s, border-color .15s, background .15s;
     }
+    .chk-link:hover { color: var(--text); border-color: var(--border-h); background: rgba(255,255,255,.04); }
 
-    .chk-link:hover {
-      color: var(--text);
-      border-color: var(--border-h);
-      background: rgba(255,255,255,0.04);
+    /* ─── SUBSCRIBE ──────────────────────────────────────────── */
+    .subscribe-section {
+      position: relative; z-index: 1;
+      max-width: 740px;
+      margin: 0 auto 80px;
+      padding: 0 20px;
+      text-align: center;
     }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 24px;
+    }
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 18px;
+      text-align: left;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: border-color .22s, background .22s;
+    }
+    .form-card:hover { border-color: var(--border-h); background: var(--bg-card-h); }
+
+    .form-card h3 { font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .form-card p  { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
+
+    .form-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background .15s, color .15s;
+    }
+    .form-link:hover { background: var(--accent); color: #fff; }
 
     /* ─── FOOTER ─────────────────────────────────────────────── */
     footer {
@@ -378,7 +417,6 @@
       color: var(--text-muted);
       font-size: 0.8rem;
     }
-
     .footer-links {
       display: flex;
       align-items: center;
@@ -387,25 +425,22 @@
       margin-bottom: 8px;
       flex-wrap: wrap;
     }
-
-    .footer-links a { color: var(--accent); text-decoration: none; }
-    .footer-links a:hover { text-decoration: underline; }
     footer a { color: var(--accent); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     .footer-sep { color: var(--border-h); }
 
-    /* ─── LANG TOGGLE ────────────────────────────────────────────── */
+    /* ─── LANG TOGGLE ────────────────────────────────────────── */
     .lang-toggle {
       position: absolute;
-      top: 20px;
-      right: 24px;
+      top: 20px; right: 24px;
       display: flex;
       gap: 2px;
-      background: var(--bg-card);
+      background: rgba(10, 20, 34, 0.7);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 3px;
       z-index: 10;
+      backdrop-filter: blur(8px);
     }
     .lang-btn {
       padding: 3px 10px;
@@ -418,11 +453,26 @@
       cursor: pointer;
       transition: background .15s, color .15s;
     }
-    .lang-btn.active {
-      background: var(--border-h);
-      color: var(--text);
-    }
+    .lang-btn.active { background: var(--border-h); color: var(--text); }
     .lang-btn:hover:not(.active) { color: var(--text); }
+
+    /* ─── ANIMATIONS ─────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: revealUp 700ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    .d1 { animation-delay: 80ms; }
+    .d2 { animation-delay: 200ms; }
+    .d3 { animation-delay: 310ms; }
+    .d4 { animation-delay: 430ms; }
+    .d5 { animation-delay: 540ms; }
+
+    @keyframes revealUp { to { opacity: 1; transform: translateY(0); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { animation: none; opacity: 1; transform: none; }
+    }
   </style>
 </head>
 <body>
@@ -432,25 +482,53 @@
       <button class="lang-btn" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="zh">中文</button>
     </div>
-    <div class="logo-img">
+
+    <div class="logo-wrap reveal d1">
       <img src="logo.jpg" alt="PicoClaw" />
     </div>
-    <p class="tagline" data-i18n="tagline">Lightweight, cross-platform, blazing fast</p>
-    <a href="https://github.com/sipeed/picoclaw/releases/latest" target="_blank" rel="noopener noreferrer">
-      <img src="https://img.shields.io/github/v/release/sipeed/picoclaw?style=flat-square&logo=github&color=58a6ff&labelColor=0d1117&logoColor=white"
-           alt="Latest Release" height="24" />
-    </a>
+
+    <p class="tagline reveal d2" data-i18n="tagline">Lightweight, cross-platform, blazing fast</p>
+
+    <div class="header-actions reveal d3">
+      <a class="badge-link" href="https://github.com/sipeed/picoclaw/releases/latest" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/github/v/release/sipeed/picoclaw?style=flat-square&logo=github&color=58a6ff&labelColor=0d1117&logoColor=white"
+             alt="Latest Release" height="24" />
+      </a>
+      <a class="badge-link" href="https://github.com/sipeed/picoclaw" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/github/stars/sipeed/picoclaw?style=flat-square&logo=github&color=f5a623&labelColor=0d1117&logoColor=white"
+             alt="GitHub Stars" height="24" />
+      </a>
+      <a class="btn-sipeed" href="https://www.sipeed.com" target="_blank" rel="noopener noreferrer" data-i18n="sipeed-visit">Visit Sipeed</a>
+    </div>
   </header>
 
   <main>
-    <p class="section-label" data-i18n="section-label">Choose your platform</p>
-    <div class="os-grid" id="os-grid">
-      <div class="state-msg" style="grid-column:1/-1" data-i18n="loading">Loading release info…</div>
+    <p class="section-label reveal d4" data-i18n="section-label">Choose your platform</p>
+    <div class="os-grid reveal d5" id="os-grid">
+      <div class="state-msg" style="grid-column:1/-1" data-i18n="loading">Loading…</div>
     </div>
   </main>
 
+  <section class="subscribe-section" aria-label="Email subscriptions">
+    <p class="section-label" data-i18n="subscribe-title">Stay Connected</p>
+    <p style="color:var(--text-muted);font-size:0.9rem;" data-i18n="subscribe-desc">Subscribe for news and product updates.</p>
+    <div class="form-grid">
+      <article class="form-card">
+        <h3 data-i18n="subscribe-global">Global · Google Form</h3>
+        <p data-i18n="subscribe-global-desc">International users can subscribe via Google Forms.</p>
+        <a class="form-link" href="https://forms.gle/2CP5WkkFu3KLFKy89" target="_blank" rel="noopener noreferrer" data-i18n="subscribe-btn-google">Subscribe via Google Form</a>
+      </article>
+      <article class="form-card">
+        <h3 data-i18n="subscribe-cn">Mainland China · Feishu</h3>
+        <p data-i18n="subscribe-cn-desc">中国大陆用户可通过飞书表单订阅。</p>
+        <a class="form-link" href="https://sipeed-ai.feishu.cn/share/base/form/shrcnNqIl1NkOHPTQDI5nC0pbag" target="_blank" rel="noopener noreferrer" data-i18n="subscribe-btn-feishu">Subscribe via Feishu</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Modal -->
   <div class="backdrop" id="backdrop">
-    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
       <div class="modal-head">
         <img class="modal-icon" id="modal-icon" src="" alt="" />
         <div class="modal-titles">
@@ -460,15 +538,12 @@
         <button class="close-btn" id="close-btn" aria-label="Close">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
       </div>
-
       <div class="divider"></div>
       <div class="arch-list" id="arch-list"></div>
-
       <div class="modal-foot">
         <span class="modal-foot-note" data-i18n="modal-foot-note">Always downloads the latest release</span>
         <a class="chk-link" id="checksums-link" href="#" target="_blank" rel="noopener noreferrer">
@@ -497,32 +572,50 @@
     // ── i18n ──────────────────────────────────────────────────────
     const TRANSLATIONS = {
       en: {
-        'tagline':         'Lightweight, cross-platform, blazing fast',
-        'section-label':   'Choose your platform',
-        'loading':         'Loading release info…',
-        'modal-sub':       'Select architecture to download',
-        'modal-foot-note': 'Always downloads the latest release',
-        'checksums':       'SHA256 Checksums',
-        'footer-releases': 'All Releases',
-        'footer-issues':   'Issues',
-        'footer-credit':   'PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a>',
-        'load-error':      'Failed to load release info.',
-        'view-github':     'View on GitHub →',
-        'arch-count':      n => `${n} architecture${n > 1 ? 's' : ''}`,
+        'tagline':              'Lightweight, cross-platform, blazing fast',
+        'section-label':        'Choose your platform',
+        'loading':              'Loading…',
+        'modal-sub':            'Select architecture to download',
+        'modal-foot-note':      'Always downloads the latest release',
+        'checksums':            'SHA256 Checksums',
+        'footer-releases':      'All Releases',
+        'footer-issues':        'Issues',
+        'footer-credit':        'PicoClaw is open-source software by <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a>',
+        'load-error':           'Failed to load release info.',
+        'view-github':          'View on GitHub →',
+        'arch-count':           n => `${n} architecture${n > 1 ? 's' : ''}`,
+        'sipeed-visit':         'Visit Sipeed',
+        'subscribe-title':      'Stay Connected',
+        'subscribe-desc':       'Subscribe for news and product updates.',
+        'subscribe-global':     'Global · Google Form',
+        'subscribe-global-desc':'International users can subscribe via Google Forms.',
+        'subscribe-cn':         'Mainland China · Feishu',
+        'subscribe-cn-desc':    '中国大陆用户可通过飞书表单订阅。',
+        'subscribe-btn-google': 'Subscribe via Google Form',
+        'subscribe-btn-feishu': 'Subscribe via Feishu',
       },
       zh: {
-        'tagline':         '轻量、跨平台、极速',
-        'section-label':   '选择平台',
-        'loading':         '加载中…',
-        'modal-sub':       '选择架构以下载',
-        'modal-foot-note': '始终下载最新版本',
-        'checksums':       'SHA256 校验和',
-        'footer-releases': '所有版本',
-        'footer-issues':   '问题反馈',
-        'footer-credit':   'PicoClaw 是由 <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a> 开发的开源软件',
-        'load-error':      '加载发布信息失败。',
-        'view-github':     '在 GitHub 上查看 →',
-        'arch-count':      n => `${n} 个架构`,
+        'tagline':              '轻量、跨平台、极速',
+        'section-label':        '选择平台',
+        'loading':              '加载中…',
+        'modal-sub':            '选择架构以下载',
+        'modal-foot-note':      '始终下载最新版本',
+        'checksums':            'SHA256 校验和',
+        'footer-releases':      '所有版本',
+        'footer-issues':        '问题反馈',
+        'footer-credit':        'PicoClaw 是由 <a href="https://github.com/sipeed" target="_blank" rel="noopener noreferrer">Sipeed</a> 开发的开源软件',
+        'load-error':           '加载发布信息失败。',
+        'view-github':          '在 GitHub 上查看 →',
+        'arch-count':           n => `${n} 个架构`,
+        'sipeed-visit':         '访问 Sipeed',
+        'subscribe-title':      '保持联系',
+        'subscribe-desc':       '订阅最新动态和产品更新。',
+        'subscribe-global':     '全球用户 · Google 表单',
+        'subscribe-global-desc':'International users can subscribe via Google Forms.',
+        'subscribe-cn':         '中国大陆用户 · 飞书',
+        'subscribe-cn-desc':    '中国大陆用户可通过飞书表单订阅。',
+        'subscribe-btn-google': '通过 Google 表单订阅',
+        'subscribe-btn-feishu': '通过飞书表单订阅',
       },
     };
 
@@ -543,8 +636,7 @@
     function applyStaticLang() {
       document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
       document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        const val = t(key);
+        const val = t(el.dataset.i18n);
         if (typeof val === 'string' && val.includes('<')) el.innerHTML = val;
         else if (typeof val === 'string') el.textContent = val;
       });
@@ -565,12 +657,46 @@
       if (btn) switchLang(btn.dataset.lang);
     });
 
+    // ── Release data (inline — update when arch list changes) ─────
+    const PLATFORMS = [
+      {
+        id: 'macos', name: 'macOS', icon: 'apple', color: '#b0b0b5',
+        archs: [
+          { label: 'Apple Silicon (arm64)', desc: 'M1 / M2 / M3 and later',  file: 'picoclaw_Darwin_arm64.tar.gz' },
+          { label: 'Intel (x86_64)',        desc: 'Intel-based Mac',           file: 'picoclaw_Darwin_x86_64.tar.gz' },
+        ],
+      },
+      {
+        id: 'windows', name: 'Windows', icon: 'windows', color: '#0a84ff',
+        archs: [
+          { label: 'x86_64 (64-bit)', desc: 'Recommended for most PCs', file: 'picoclaw_Windows_x86_64.zip' },
+          { label: 'ARM64',           desc: 'Windows on ARM',           file: 'picoclaw_Windows_arm64.zip' },
+        ],
+      },
+      {
+        id: 'linux', name: 'Linux', icon: 'linux', color: '#f5a623',
+        archs: [
+          { label: 'x86_64',           desc: '64-bit · Recommended',        file: 'picoclaw_Linux_x86_64.tar.gz',  packages: { deb: 'picoclaw_x86_64.deb',   rpm: 'picoclaw_x86_64.rpm'   } },
+          { label: 'ARM64 (arm64)',     desc: 'Raspberry Pi 4/5, modern SBCs', file: 'picoclaw_Linux_arm64.tar.gz',  packages: { deb: 'picoclaw_aarch64.deb',  rpm: 'picoclaw_aarch64.rpm'  } },
+          { label: 'ARMv7 (armv7)',     desc: 'Raspberry Pi 2/3, older SBCs', file: 'picoclaw_Linux_armv7.tar.gz',  packages: { deb: 'picoclaw_armv7.deb',    rpm: 'picoclaw_armv7.rpm'    } },
+          { label: 'RISC-V 64 (riscv64)', desc: 'RISC-V 64-bit',             file: 'picoclaw_Linux_riscv64.tar.gz', packages: { deb: 'picoclaw_riscv64.deb',  rpm: 'picoclaw_riscv64.rpm'  } },
+        ],
+      },
+      {
+        id: 'freebsd', name: 'FreeBSD', icon: 'freebsd', color: '#d03030',
+        archs: [
+          { label: 'x86_64',       desc: '64-bit · Recommended', file: 'picoclaw_Freebsd_x86_64.tar.gz' },
+          { label: 'ARM64 (arm64)', desc: 'AArch64',              file: 'picoclaw_Freebsd_arm64.tar.gz'  },
+          { label: 'ARMv7 (armv7)', desc: 'ARM 32-bit',           file: 'picoclaw_Freebsd_armv7.tar.gz'  },
+        ],
+      },
+    ];
+
     // ── Constants ─────────────────────────────────────────────────
     const BASE_DL      = 'https://github.com/sipeed/picoclaw/releases/latest/download/';
     const RELEASES_URL = 'https://github.com/sipeed/picoclaw/releases/latest';
     const ICON_CDN     = 'https://cdn.simpleicons.org/';
 
-    // Inline SVG fallbacks for icons not reliably available on CDN
     const INLINE_ICONS = {
       windows: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="{COLOR}"><path d="M3 5L10.5 3.9V11H3zM11.5 3.7L21 2.5V11H11.5zM3 12H10.5V20.1L3 19zM11.5 12H21V21.5L11.5 20.3z"/></svg>`,
     };
@@ -583,20 +709,17 @@
       return ICON_CDN + slug + '/' + color.replace('#', '');
     }
 
-    const ARROW_SVG = `
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="5" y1="12" x2="19" y2="12"/>
-        <polyline points="12 5 19 12 12 19"/>
-      </svg>`;
+    const ARROW_SVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+    </svg>`;
 
-    const DL_SVG = `
-      <svg class="dl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
-      </svg>`;
+    const DL_SVG = `<svg class="dl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>`;
 
     let platformData = null;
 
@@ -604,14 +727,12 @@
       platformData = platforms;
       const grid = document.getElementById('os-grid');
       grid.innerHTML = '';
-
       platforms.forEach(p => {
         const card = document.createElement('div');
         card.className = 'os-card';
         card.style.setProperty('--c', p.color);
         card.setAttribute('role', 'button');
         card.setAttribute('tabindex', '0');
-
         card.innerHTML = `
           <img class="os-icon" src="${iconUrl(p.icon, p.color)}" alt="${p.name}" />
           <div class="os-info">
@@ -619,12 +740,10 @@
             <div class="os-sub">${t('arch-count')(p.archs.length)}</div>
           </div>
           <div class="os-arrow">${ARROW_SVG}</div>`;
-
         card.addEventListener('click', () => openModal(p));
         card.addEventListener('keydown', e => {
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(p); }
         });
-
         grid.appendChild(card);
       });
     }
@@ -671,7 +790,6 @@
 
       document.getElementById('backdrop').classList.add('open');
       document.body.style.overflow = 'hidden';
-
       requestAnimationFrame(() => {
         const first = list.querySelector('.arch-item');
         if (first) first.focus();
@@ -689,27 +807,9 @@
     document.getElementById('close-btn').addEventListener('click', closeModal);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // Apply language on initial load
     applyStaticLang();
-
-    // Checksums always point to the latest release page
     document.getElementById('checksums-link').href = RELEASES_URL;
-
-    // ── Load platform list from releases.json ─────────────────────
-    fetch('releases.json')
-      .then(r => {
-        if (!r.ok) throw new Error('Failed to load releases.json');
-        return r.json();
-      })
-      .then(data => buildCards(data.platforms))
-      .catch(err => {
-        console.error(err);
-        document.getElementById('os-grid').innerHTML =
-          `<div class="state-msg" style="grid-column:1/-1">
-             ${t('load-error')}
-             <a href="${RELEASES_URL}" style="color:var(--accent)">${t('view-github')}</a>
-           </div>`;
-      });
+    buildCards(PLATFORMS);
   </script>
 </body>
 </html>
