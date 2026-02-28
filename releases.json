@@ -61,6 +61,12 @@
           "packages": { "deb": "picoclaw_armv7.deb", "rpm": "picoclaw_armv7.rpm" }
         },
         {
+          "label": "ARMv6 (armv6)",
+          "desc": "Raspberry Pi 1 / Zero",
+          "file": "picoclaw_Linux_armv6.tar.gz",
+          "packages": { "deb": "picoclaw_armv6.deb", "rpm": "picoclaw_armv6.rpm" }
+        },
+        {
           "label": "RISC-V 64 (riscv64)",
           "desc": "RISC-V 64-bit",
           "file": "picoclaw_Linux_riscv64.tar.gz",
