@@ -137,12 +137,16 @@
 
     /* ─── OS GRID ────────────────────────────────────────────── */
     .os-grid {
-      display: grid;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 14px;
-      grid-template-columns: repeat(2, 1fr);
+    }
+    .os-card {
+      flex: 0 0 calc(50% - 7px);
     }
     @media (min-width: 600px) {
-      .os-grid { grid-template-columns: repeat(4, 1fr); }
+      .os-card { flex: 0 0 calc(25% - 11px); }
     }
 
     .os-card {
