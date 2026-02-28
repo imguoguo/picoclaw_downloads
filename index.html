@@ -690,6 +690,11 @@
           { label: 'ARMv7 (armv7)', desc: 'ARM 32-bit',           file: 'picoclaw_Freebsd_armv7.tar.gz'  },
         ],
       },
+      {
+        id: 'android', name: 'Android', icon: 'android', color: '#3ddc84',
+        link: 'https://github.com/sipeed/picoclaw?tab=readme-ov-file#-run-on-old-android-phones',
+        sub: { en: 'View Guide', zh: '查看教程' },
+      },
     ];
 
     // ── Constants ─────────────────────────────────────────────────
@@ -733,16 +738,20 @@
         card.style.setProperty('--c', p.color);
         card.setAttribute('role', 'button');
         card.setAttribute('tabindex', '0');
+        const subText = p.sub ? (p.sub[currentLang] || p.sub.en) : t('arch-count')(p.archs.length);
         card.innerHTML = `
           <img class="os-icon" src="${iconUrl(p.icon, p.color)}" alt="${p.name}" />
           <div class="os-info">
             <div class="os-name">${p.name}</div>
-            <div class="os-sub">${t('arch-count')(p.archs.length)}</div>
+            <div class="os-sub">${subText}</div>
           </div>
           <div class="os-arrow">${ARROW_SVG}</div>`;
-        card.addEventListener('click', () => openModal(p));
+        const action = p.link
+          ? () => window.open(p.link, '_blank', 'noopener,noreferrer')
+          : () => openModal(p);
+        card.addEventListener('click', action);
         card.addEventListener('keydown', e => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(p); }
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); action(); }
         });
         grid.appendChild(card);
       });
