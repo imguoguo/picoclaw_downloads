@@ -1,7 +1,7 @@
 export const releases = [
   {
     version: 'v0.2.7',
-    date: '2026-04-21',
+    date: '2026-04-22',
     highlights: [
       '<strong>Launcher Auth Flow Upgrade</strong>: Unified login/setup/logout with browserless OAuth support',
       '<strong>Dashboard Auth Upgrade</strong>: Web UI authentication migrated from Token to Password',

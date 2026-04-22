@@ -1,7 +1,7 @@
 export const releases = [
   {
     version: 'v0.2.7',
-    date: '2026-04-21',
+    date: '2026-04-22',
     highlights: [
       '<strong>Launcher 认证流程升级</strong>：统一 login/setup/logout，支持 OAuth 无浏览器登录',
       '<strong>Dashboard 鉴权升级</strong>：Web UI 从 Token 认证迁移为 Password 认证',
